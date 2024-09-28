@@ -44,6 +44,13 @@
   background-size: cover;
 }
 
+.botswanabg {
+  background: url('components/media/botswana.jpeg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 /* From Uiverse.io by cssbuttons-io */ 
 button {
   position: relative;
