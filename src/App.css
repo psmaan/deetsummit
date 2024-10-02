@@ -157,3 +157,24 @@ button {
  button:hover .button-text {
   color: #fff;
  }
+
+ .dealroom {
+  background: url('./components/media/dealroom.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.investor {
+  background: url('./components/media/investorimg.png');
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+}
+
+.entrepreneur {
+  background: url('./components/media/entrepreneurimg.png');
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+}

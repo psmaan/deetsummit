@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 import Schedule from './components/Schedule';
 
 import calendar from './components/media/calendar.png';
@@ -305,7 +305,7 @@ function Homepage() {
                         <a href='#home' className='cursor-pointer hover:border-b-2 border-white duration-200 px-1 mx-2 text-white'>Home</a>
                         <a href='#speakers' className='cursor-pointer hover:border-b-2 border-white duration-200 px-1 mx-2 text-white'>Speakers</a>
                         <a href='#schedule' className='cursor-pointer hover:border-b-2 border-white duration-200 px-1 mx-2 text-white'>Schedule</a>
-                        <a className='cursor-pointer hover:border-b-2 border-white duration-200 px-1 mx-2 text-white'>Deal Room</a>
+                        <Link to="/dealroom" className='cursor-pointer hover:border-b-2 border-white duration-200 px-1 mx-2 text-white'>Deal Room</Link>
 
                     </div>
                     <div className='  flex flex-col items-end justify-center'>
