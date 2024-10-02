@@ -43,7 +43,7 @@ const DealroomPage = () => {
                         <p className='text-white'>
                             Explore a curated selection of promising startups with the potential to reshape industries and drive digital transformation across Africa.
                         </p>
-                        <button className='text-white border-white border-2 p-2 px-4 text-xl bg-white text-[#0572BB] duration-200 mt-8'>Shortlist as an Investor</button>
+                        <button className=' border-white border-2 p-2 px-4 text-xl bg-white text-[#0572BB] duration-200 mt-8'>Shortlist as an Investor</button>
                     </div>
                     <div className='w-full lg:w-1/2 investor h-[400px]'>
                     </div>
@@ -56,7 +56,7 @@ const DealroomPage = () => {
                         <p className='text-white'>
                             Pitch your ventures to potential backers who are eager to support disruptive technologies and visionary projects.
                         </p>
-                        <button className='text-white border-white border-2 p-2 px-4 text-xl bg-white text-[#95d5b2] duration-200 mt-8'>Shortlist as an Entrepreneur</button>
+                        <button className=' border-white border-2 p-2 px-4 text-xl bg-white text-[#95d5b2] duration-200 mt-8'>Shortlist as an Entrepreneur</button>
                     </div>
                     <div className='w-full lg:w-1/2 entrepreneur h-[400px]'>
                     </div>
