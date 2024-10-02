@@ -51,6 +51,24 @@
   background-size: cover;
 }
 
+.aboutdges {
+  background: url('components/media/aboutdges.jpeg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.agendabg {
+  background: url('components/media/whitegfx.jpeg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.shadowbox {
+  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.2);
+}
+
 /* From Uiverse.io by cssbuttons-io */ 
 button {
   position: relative;
