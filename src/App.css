@@ -178,3 +178,46 @@ button {
   background-position: top;
   background-repeat: no-repeat;
 }
+
+/* Text hidden state */
+.text-fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+}
+
+/* Visible state (when in viewport) */
+.text-fade-in.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Add delay for a staggered animation effect on texts */
+.text-fade-in-delay {
+  transition-delay: 0.3s;
+}
+
+/* Text hidden state */
+.text-slide-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+}
+
+.text-slide-in.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Image hidden state */
+.image-fade-in {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+}
+
+.image-fade-in.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+

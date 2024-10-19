@@ -21,131 +21,58 @@ import aboutimg from './components/media/aboutdges.jpeg';
 
 function Homepage() {
 
-    const [selectedDay, setSelectedDay] = useState(11);
-    const [fade, setFade] = useState(false); // State for fade effect
+    useEffect(() => {
+        const textElements = document.querySelectorAll('.text-fade-in');
 
-    // Schedule data for each day
-    const schedule = {
-        11: {
-            day: 'November 11',
-            sessions: {
-                morning: {
-                    time: '10:00 AM - 12:00 PM',
-                    events: [
-                        {
-                            title: 'Keynote Address: The Future of Digital Education in Africa',
-                            speaker: 'Speaker Name',
-                            designation: 'Speaker Designation'
-                        },
-                        {
-                            title: 'Panel Discussion: Integrating Digital Literacy into Curricula',
-                            speaker: 'Speaker Name',
-                            designation: 'Speaker Designation'
-                        },
-                        {
-                            title: 'Workshop: Leveraging EdTech to Overcome Educational Barriers',
-                            speaker: 'Speaker Name',
-                            designation: 'Speaker Designation'
-                        }
-                    ]
-                },
-                afternoon: {
-                    time: '12:00 PM - 3:00 PM',
-                    events: [
-                        {
-                            title: 'Case Study Presentation: Building Partnerships Between African and Global Educational Institutions',
-                            speaker: 'Speaker Name',
-                            designation: 'Speaker Designation'
-                        },
-                        {
-                            title: 'Breakout Session: Virtual Learning—Opportunities and Challenges in African Contexts',
-                            speaker: 'Speaker Name',
-                            designation: 'Speaker Designation'
-                        }
-                    ]
-                }
+        const observer = new IntersectionObserver(
+            entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            },
+            {
+                threshold: 0.1 // 10% of the text is visible
             }
-        },
-        12: {
-            day: 'November 12',
-            sessions: {
-                morning: {
-                    time: '10:00 AM - 12:00 PM',
-                    events: [
-                        {
-                            title: 'Fireside Chat: Scaling Startups in Africa—Strategies for Growth and Sustainability',
-                            speaker: 'Speaker Name',
-                            designation: 'Speaker Designation'
-                        },
-                        {
-                            title: 'Panel Discussion: Women in Tech—Empowering Female Entrepreneurs in the Digital Economy',
-                            speaker: 'Speaker Name',
-                            designation: 'Speaker Designation'
-                        }
-                    ]
-                },
-                afternoon: {
-                    time: '12:00 PM - 3:00 PM',
-                    events: [
-                        {
-                            title: 'Interactive Workshop: Navigating the African Tech Ecosystem—Opportunities and Challenges',
-                            speaker: 'Speaker Name',
-                            designation: 'Speaker Designation'
-                        },
-                        {
-                            title: 'Case Study Session: 5G and Internet Connectivity—Transforming African Economies',
-                            speaker: 'Speaker Name',
-                            designation: 'Speaker Designation'
-                        }
-                    ]
-                }
-            }
-        },
-        13: {
-            day: 'November 13',
-            sessions: {
-                morning: {
-                    time: '10:00 AM - 12:00 PM',
-                    events: [
-                        {
-                            title: 'Keynote Address: Crafting Policies for Digital Transformation in Africa',
-                            speaker: 'Speaker Name',
-                            designation: 'Speaker Designation'
-                        },
-                        {
-                            title: 'Panel Discussion: The Role of Governments in Promoting Tech Innovation',
-                            speaker: 'Speaker Name',
-                            designation: 'Speaker Designation'
-                        }
-                    ]
-                },
-                afternoon: {
-                    time: '12:00 PM - 3:00 PM',
-                    events: [
-                        {
-                            title: 'Workshop: Venture Capital and Funding Opportunities for African Startups',
-                            speaker: 'Speaker Name',
-                            designation: 'Speaker Designation'
-                        },
-                        {
-                            title: 'Panel Discussion: Public-Private Partnerships (PPP) in Advancing Digital Infrastructure',
-                            speaker: 'Speaker Name',
-                            designation: 'Speaker Designation'
-                        }
-                    ]
-                }
-            }
-        }
-    };
+        );
 
-    // Handle day selection with fade animation
-    const handleDaySelect = (day) => {
-        setFade(true);
-        setTimeout(() => {
-            setSelectedDay(day);
-            setFade(false);
-        }, 300); // Match duration with CSS transition time
-    };
+        textElements.forEach(element => {
+            observer.observe(element);
+        });
+
+        // Cleanup observer on component unmount
+        return () => {
+            textElements.forEach(element => observer.unobserve(element));
+        };
+    }, []);
+
+    useEffect(() => {
+        // Handle text elements
+        const textElements = document.querySelectorAll('.text-slide-in');
+        const imageElements = document.querySelectorAll('.image-fade-in');
+
+        const observer = new IntersectionObserver(
+            entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            },
+            {
+                threshold: 0.1 // Trigger when 10% of the element is visible
+            }
+        );
+
+        textElements.forEach(el => observer.observe(el));
+        imageElements.forEach(el => observer.observe(el));
+
+        return () => {
+            textElements.forEach(el => observer.unobserve(el));
+            imageElements.forEach(el => observer.unobserve(el));
+        };
+    }, []);
 
     const containerRef = useRef(null);
 
@@ -302,59 +229,59 @@ function Homepage() {
             <div className='w-full min-h-screen nairobi'>
                 <div className='w-full flex justify-between p-8 pl-16 items-start'>
                     <div className='flex items-center'>
-                        <a href='#home' className='cursor-pointer hover:border-b-2 border-white duration-200 px-1 mx-2 text-white'>Home</a>
-                        <a href='#speakers' className='cursor-pointer hover:border-b-2 border-white duration-200 px-1 mx-2 text-white'>Speakers</a>
-                        <a href='#schedule' className='cursor-pointer hover:border-b-2 border-white duration-200 px-1 mx-2 text-white'>Schedule</a>
-                        <Link to="/dealroom" className='cursor-pointer hover:border-b-2 border-white duration-200 px-1 mx-2 text-white'>Deal Room</Link>
-
-                    </div>
-                    <div className='  flex flex-col items-end justify-center'>
-                        <h1 className='text-8xl font-bold text-blue-100'>DEET 2025</h1>
-                        <button className='p-2 px-3 rounded-md bg-blue-600 text-white mx-2'>Sponsor Today</button>
+                        <a href='#home' className='cursor-pointer hover:border-b-2 border-white duration-200 px-1 mx-2 text-white text-fade-in text-fade-in-delay'>Home</a>
+                        <a href='#speakers' className='cursor-pointer hover:border-b-2 border-white duration-200 px-1 mx-2 text-white text-fade-in text-fade-in-delay'>Speakers</a>
+                        <Link to='schedule' className='cursor-pointer hover:border-b-2 border-white duration-200 px-1 mx-2 text-white text-fade-in text-fade-in-delay'>Schedule</Link>
+                        <Link to="/dealroom" className='cursor-pointer hover:border-b-2 border-white duration-200 px-1 mx-2 text-white text-fade-in text-fade-in-delay'>Deal Room</Link>
                     </div>
 
+                    <div className='flex flex-col items-end justify-center'>
+                        <h1 className='text-8xl font-bold text-blue-100 text-fade-in text-fade-in-delay'>DEET 2025</h1>
+                        <button className='p-2 px-3 rounded-md bg-blue-600 text-white mx-2 text-fade-in text-fade-in-delay'>Sponsor Today</button>
+                    </div>
                 </div>
+
                 <div className='p-16 pt-0 w-4/5 relative -top-8'>
-                    <h1 className='text-8xl font-bold text-white'>Digital Excellence and Economy Summit</h1>
-                    <h1 className='text-4xl mt-4 font-bold text-gray-500'>November 2024</h1>
-                    <h1 className='text-6xl text-white font-light mb-8'>Gaborone, Botswana</h1>
-                    <button class="learn-more">
-                        <span class="circle" aria-hidden="true">
-                            <span class="icon arrow"></span>
+                    <h1 className='text-8xl font-bold text-white text-fade-in text-fade-in-delay'>Digital Excellence and Economy Summit</h1>
+                    <h1 className='text-4xl mt-4 font-bold text-gray-500 text-fade-in text-fade-in-delay'>November 2024</h1>
+                    <h1 className='text-6xl text-white font-light mb-8 text-fade-in text-fade-in-delay'>Gaborone, Botswana</h1>
+                    <button className='learn-more text-fade-in text-fade-in-delay'>
+                        <span className="circle" aria-hidden="true">
+                            <span className="icon arrow"></span>
                         </span>
-                        <span class="button-text">Learn More</span>
+                        <span className="button-text">Learn More</span>
                     </button>
                 </div>
             </div>
             <div className='w-full p-12 flex justify-center'>
+                {/* Left side with text */}
                 <div className='flex flex-col w-[40%] mr-8'>
-                    <h1 className='text-5xl'>What is the DEET Summit?</h1>
-                    <p className='mt-4'>The Digital Excellence and Emerging Technology Summit 2025 (DEET Summit 2025) is a dynamic 3-day event aimed at fostering digital innovation across Africa. Hosted in Nairobi, Kenya, this summit brings together key stakeholders, including thought leaders, innovators, policymakers, and entrepreneurs, to discuss the digital future of the continent. Through panels, workshops, and networking opportunities, the summit seeks to empower attendees with insights into cutting-edge technologies and strategies for overcoming Africa’s unique challenges.</p>
-                    <p className='mt-4'>
-                        From education and entrepreneurship to policy and funding, DEET Summit 2025 covers essential topics such as tech adoption, digital literacy, and sustainable development. The event is an unmissable opportunity for those passionate about advancing digital excellence and shaping the future of Africa’s digital economy.
-                    </p>
+                    <h1 className='text-5xl text-slide-in'>What is the DEET Summit?</h1>
+                    <p className='mt-4 text-slide-in'>The Digital Excellence and Emerging Technology Summit 2025 (DEET Summit 2025) is a dynamic 3-day event aimed at fostering digital innovation across Africa. Hosted in Nairobi, Kenya, this summit brings together key stakeholders, including thought leaders, innovators, policymakers, and entrepreneurs, to discuss the digital future of the continent. Through panels, workshops, and networking opportunities, the summit seeks to empower attendees with insights into cutting-edge technologies and strategies for overcoming Africa’s unique challenges.</p>
+                    <p className='mt-4 text-slide-in'>From education and entrepreneurship to policy and funding, DEET Summit 2025 covers essential topics such as tech adoption, digital literacy, and sustainable development. The event is an unmissable opportunity for those passionate about advancing digital excellence and shaping the future of Africa’s digital economy.</p>
                 </div>
+
+                {/* Right side with image */}
                 <div className='w-[40%] ml-8'>
-                    <div className='w-[400px] h-[500px] overflow-auto rounded-2xl shadow-2xl aboutdges'>
-                    </div>
+                    <div className='w-[400px] h-[500px] overflow-auto rounded-2xl shadow-2xl aboutdges image-fade-in'></div>
                 </div>
             </div>
+
+            {/* Second section with the quote and additional text */}
             <div className='w-full flex p-12 flex-col items-center botswanabg'>
                 <div className='border-2 border-gray-400 rounded-2xl shadow-xl flex flex-col w-[90%] items-center backdrop-blur-2xl p-8'>
+                    {/* Text and images inside the card */}
                     <div className='flex items-start rounded-xl shadow-xl bg-black/20 p-8 w-[80%]'>
-                        <img src={quote} />
-                        <h1 className='text-white/70 ml-4 font-light text-4xl text-center'>ADVANCING DIGITAL EXCELLENCE THROUGHOUT AFRICA</h1>
-                        <img className=' mt-auto rotate-180' src={quote}></img>
+                        <img src={quote} className='image-fade-in' />
+                        <h1 className='text-white/70 ml-4 font-light text-4xl text-center text-slide-in'>ADVANCING DIGITAL EXCELLENCE THROUGHOUT AFRICA</h1>
+                        <img className='mt-auto rotate-180 image-fade-in' src={quote}></img>
                     </div>
-                    <h1 className='mt-8 text-2xl text-center text-gray-200'>The Digital Excellence and Emerging Technology Summit 2024 brings together global leaders, innovators, and experts to explore the cutting-edge advancements in digital technologies and their transformative impact on society, business, and governance. Held at the prestigious WWTH UN Law Center in New York, this summit will delve into the most pressing issues and opportunities in the digital world, with a focus on fostering sustainable development and economic growth.</h1>
+                    <h1 className='mt-8 text-2xl text-center text-gray-200 text-slide-in'>The Digital Excellence and Emerging Technology Summit 2024 brings together global leaders, innovators, and experts to explore the cutting-edge advancements in digital technologies and their transformative impact on society, business, and governance. Held at the prestigious WWTH UN Law Center in New York, this summit will delve into the most pressing issues and opportunities in the digital world, with a focus on fostering sustainable development and economic growth.</h1>
                 </div>
-
-
-
-
             </div>
-            <div className='w-full p-12 bg-blue-100'>
-                <h1 className='text-8xl font-light text-blue-900'>DEET Agenda</h1>
+
+            <div className='w-full p-12 bg-blue-200'>
+                <h1 className='text-8xl font-light text-gray-700'>DEET Agenda</h1>
                 <div className='mt-12 flex w-full '>
                     <div
                         className='w-[80%] overflow-x-hidden overflow-y-auto scroll-smooth scrollbar-hide snap-x snap-mandatory'
@@ -364,7 +291,7 @@ function Homepage() {
                             {divs.map((div, idx) => (
                                 <div
                                     key={div.id}
-                                    className={`h-[360px] bg-blue-900 rounded-2xl p-6 flex-shrink-0 w-[calc(32%)] snap-center ${idx !== divs.length - 1 ? 'mr-4' : '' // Add margin-right except for the last div
+                                    className={`h-[360px] bg-gray-600 rounded-2xl p-6 flex-shrink-0 w-[calc(32%)] snap-center ${idx !== divs.length - 1 ? 'mr-4' : '' // Add margin-right except for the last div
                                         }`}
                                 >
                                     <h1 className='text-2xl text-white/30'>{div.content}</h1>
@@ -379,133 +306,70 @@ function Homepage() {
                         </div>
                     </div>
                     <div className='w-[20%] flex items-center justify-center'>
-                        <div onClick={handleScrollLeft} className='mx-2 w-20 h-20 mb-2 p-2 bg-blue-900 flex justify-center items-center rounded-full'>
+                        <div onClick={handleScrollLeft} className='mx-2 w-20 h-20 mb-2 p-2 bg-gray-600 flex justify-center items-center rounded-full'>
                             <img className='w-[90%]' src={left} />
                         </div>
-                        <div onClick={handleScrollRight} className='mx-2 w-20 h-20 mb-2 p-2 bg-blue-900 flex justify-center items-center rounded-full'>
+                        <div onClick={handleScrollRight} className='mx-2 w-20 h-20 mb-2 p-2 bg-gray-600 flex justify-center items-center rounded-full'>
                             <img className='w-[90%]' src={right} />
                         </div>
                     </div>
                 </div>
             </div>
-            <div className='w-full p-12'>
-                <h1 className='text-8xl font-light text-blue-300'>DEET Schedule</h1>
-                <h1 className='mt-12 font-semibold text-4xl'>Nov 2024</h1>
 
-                {/* Day Selection Buttons */}
-                <div className='flex items-center mt-4'>
-                    {[11, 12, 13].map(day => (
-                        <div
-                            key={day}
-                            onClick={() => handleDaySelect(day)}
-                            className={`text-blue-300 hover:text-white shadow-xl mr-4 h-16 w-16 bg-gray-100 hover:bg-blue-300 rounded-full flex justify-center items-center duration-200 cursor-pointer ${selectedDay === day ? 'bg-blue-300 text-white scale-110' : ''
-                                }`}
-                        >
-                            <h1 className='font-bold text-3xl'>{day}</h1>
-                        </div>
-                    ))}
-                </div>
-
-                {/* Render schedule based on the selected day */}
-                <div className={`p-8 flex flex-col items-start border-[2px] border-gray-100 mt-8 transition-opacity duration-300 ${fade ? 'opacity-0' : 'opacity-100'}`}>
-                    <h1 className='bg-blue-400 text-2xl text-white font-light rounded-lg p-2 px-3'>Morning Sessions</h1>
-                    <div className='mt-2 flex items-center'>
-                        <h1 className='text-2xl text-gray-400'>{schedule[selectedDay].day}</h1>
-                        <h1 className='text-6xl relative -top-4 mx-4 text-gray-400'>.</h1>
-                        <h1 className='text-2xl text-gray-400'>{schedule[selectedDay].sessions.morning.time}</h1>
-                    </div>
-
-                    {/* Morning Events */}
-                    {schedule[selectedDay].sessions.morning.events.map((event, idx) => (
-                        <div key={idx} className='my-4'>
-                            <h1 className='text-2xl text-gray-500'>{event.title}</h1>
-                            <div className='flex items-start mt-4'>
-                                <div className='h-24 w-24 rounded-full bg-blue-300 mr-4'></div>
-                                <div>
-                                    <h1 className='text-xl mt-2'>{event.speaker}</h1>
-                                    <h1 className='text-lg font-light text-gray-400'>{event.designation}</h1>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-
-                    <h1 className='bg-blue-400 text-2xl text-white font-light rounded-lg p-2 px-3'>Afternoon Sessions</h1>
-                    <div className='mt-2 flex items-center'>
-                        <h1 className='text-2xl text-gray-400'>{schedule[selectedDay].day}</h1>
-                        <h1 className='text-6xl relative -top-4 mx-4 text-gray-400'>.</h1>
-                        <h1 className='text-2xl text-gray-400'>{schedule[selectedDay].sessions.afternoon.time}</h1>
-                    </div>
-
-                    {/* Afternoon Events */}
-                    {schedule[selectedDay].sessions.afternoon.events.map((event, idx) => (
-                        <div key={idx} className='my-4'>
-                            <h1 className='text-2xl text-gray-500'>{event.title}</h1>
-                            <div className='flex items-start mt-4'>
-                                <div className='h-24 w-24 rounded-full bg-blue-300 mr-4'></div>
-                                <div>
-                                    <h1 className='text-xl mt-2'>{event.speaker}</h1>
-                                    <h1 className='text-lg font-light text-gray-400'>{event.designation}</h1>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-
-            <div className='bg-blue-950 p-12 w-full'>
-                <h1 className='text-8xl font-light text-white'>DEET Speakers</h1>
+            <div className='bg-gray-100 p-12 w-full'>
+                <h1 className='text-8xl font-light text-gray-700'>DEET Speakers</h1>
                 <div className='w-full grid grid-cols-4 gap-4 gapy-y-6  mt-12'>
                     <div className='bg-[#ABCAE9] flex flex-col items-center rounded-2xl overflow-hidden'>
-                        <div className='h-60 w-full bg-gray-100'>
+                        <div className='h-60 w-full bg-white'>
                             <img />
                         </div>
                         <h1 className='text-4xl text-white/80 font-semibold text-center mt-4'>Speaker 1</h1>
                         <h1 className='text-center text-2xl font-light mb-4 text-black/50'>Speaker Designation</h1>
                     </div>
                     <div className='bg-[#ABCAE9] flex flex-col items-center rounded-2xl overflow-hidden'>
-                        <div className='h-60 w-full bg-gray-100'>
+                        <div className='h-60 w-full bg-white'>
                             <img />
                         </div>
                         <h1 className='text-4xl text-white/80 font-semibold text-center mt-4'>Speaker 1</h1>
                         <h1 className='text-center text-2xl font-light mb-4 text-black/50'>Speaker Designation</h1>
                     </div>
                     <div className='bg-[#ABCAE9] flex flex-col items-center rounded-2xl overflow-hidden'>
-                        <div className='h-60 w-full bg-gray-100'>
+                        <div className='h-60 w-full bg-white'>
                             <img />
                         </div>
                         <h1 className='text-4xl text-white/80 font-semibold text-center mt-4'>Speaker 1</h1>
                         <h1 className='text-center text-2xl font-light mb-4 text-black/50'>Speaker Designation</h1>
                     </div>
                     <div className='bg-[#ABCAE9] flex flex-col items-center rounded-2xl overflow-hidden'>
-                        <div className='h-60 w-full bg-gray-100'>
+                        <div className='h-60 w-full bg-white'>
                             <img />
                         </div>
                         <h1 className='text-4xl text-white/80 font-semibold text-center mt-4'>Speaker 1</h1>
                         <h1 className='text-center text-2xl font-light mb-4 text-black/50'>Speaker Designation</h1>
                     </div>
                     <div className='bg-[#ABCAE9] flex flex-col items-center rounded-2xl overflow-hidden'>
-                        <div className='h-60 w-full bg-gray-100'>
+                        <div className='h-60 w-full bg-white'>
                             <img />
                         </div>
                         <h1 className='text-4xl text-white/80 font-semibold text-center mt-4'>Speaker 1</h1>
                         <h1 className='text-center text-2xl font-light mb-4 text-black/50'>Speaker Designation</h1>
                     </div>
                     <div className='bg-[#ABCAE9] flex flex-col items-center rounded-2xl overflow-hidden'>
-                        <div className='h-60 w-full bg-gray-100'>
+                        <div className='h-60 w-full bg-white'>
                             <img />
                         </div>
                         <h1 className='text-4xl text-white/80 font-semibold text-center mt-4'>Speaker 1</h1>
                         <h1 className='text-center text-2xl font-light mb-4 text-black/50'>Speaker Designation</h1>
                     </div>
                     <div className='bg-[#ABCAE9] flex flex-col items-center rounded-2xl overflow-hidden'>
-                        <div className='h-60 w-full bg-gray-100'>
+                        <div className='h-60 w-full bg-white'>
                             <img />
                         </div>
                         <h1 className='text-4xl text-white/80 font-semibold text-center mt-4'>Speaker 1</h1>
                         <h1 className='text-center text-2xl font-light mb-4 text-black/50'>Speaker Designation</h1>
                     </div>
                     <div className='bg-[#ABCAE9] flex flex-col items-center rounded-2xl overflow-hidden'>
-                        <div className='h-60 w-full bg-gray-100'>
+                        <div className='h-60 w-full bg-white'>
                             <img />
                         </div>
                         <h1 className='text-4xl text-white/80 font-semibold text-center mt-4'>Speaker 1</h1>
@@ -707,19 +571,19 @@ function Homepage() {
                     </div>
                 </div>
             </div>
-            <div className='w-full p-12 flex justify-between bg-blue-950 h-[300px]'>
+            <div className='w-full p-12 flex justify-between bg-gray-800 h-[300px]'>
                 <div className='flex flex-col items-start justify-between'>
-                    <h1 className='text-blue-100 font-light text-6xl'>Get in Touch with us</h1>
+                    <h1 className='text-gray-100 font-semibold text-6xl'>Get in Touch with us</h1>
                     <div>
-                        <div className='flex items-center'>
+                        <div className='flex items-center my-2'>
                             <img className='mr-4 h-6 w-6' src={phone} />
                             <h1 className='text-xl text-white'>+1 999-888-XXX</h1>
                         </div>
-                        <div className='flex items-center'>
+                        <div className='flex items-center my-2'>
                             <img className='mr-4 h-6 w-6' src={phone} />
                             <h1 className='text-xl text-white'>+1 999-888-XXX</h1>
                         </div>
-                        <div className='flex items-center'>
+                        <div className='flex items-center my-2'>
                             <img className='mr-4 h-6 w-6' src={email} />
                             <h1 className='text-xl text-white'>info@hubfordigitalexcellence.com</h1>
                         </div>
